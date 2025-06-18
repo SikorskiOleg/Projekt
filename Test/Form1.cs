@@ -27,11 +27,20 @@ namespace Test
             smierc.Click += Click_Button;
             uciekaj.Click += Click_Button;
             wysluchaj.Click += Click_Button;
+            pytanie.Click += Click_Button;
+            que1.Click += Click_Button;
+            que2.Click += Click_Button;
+            que3.Click += Click_Button;
+            que4.Click += Click_Button;
             // koniec przypisania wartości przycisków
         }
-        private void wstep_TextChanged(object sender, EventArgs e)
+        private void tabelapytania()
         {
-            
+            string [] tab = new string [4];
+            tab [0] = "Co jest zawsze przed tobą, ale nigdy nie możesz tego zobaczyć?";
+            tab [1] = "Co ma wiele kluczy, ale nie otwiera żadnych drzwi?";
+            tab [2] = "Co jest tak delikatne, że nawet słowo może to złamać?";
+            tab [3] = "Co jest większe niż Bóg, gorsze niż diabeł, bogaci to mają, biedni tego potrzebują, a jeśli to zjesz, umrzesz?";
 
         }
         private void UciekajAkcja()
@@ -48,6 +57,15 @@ namespace Test
             wysluchaj.Visible = false;
             ponownie.Visible = true;
             poddaj.Visible = true;
+            
+           poddaj.Click += (s, e) =>
+            {
+                Application.Exit();
+            };
+            ponownie.Click += (s, e) =>
+            {
+                Application.Restart();
+            };
         }
         private void SmiercAkcja()
         {
@@ -71,6 +89,15 @@ namespace Test
             wysluchaj.Visible = false;
             ponownie.Visible = true;
             poddaj.Visible = true;
+
+            poddaj.Click += (s, e) =>
+            {
+                Application.Exit();
+            };
+            ponownie.Click += (s, e) =>
+            {
+                Application.Restart();
+            };
         }
         private void WysluchajAkcja()
         {
@@ -81,9 +108,25 @@ namespace Test
 
             wstep.Text = "Sfinks milczy przez chwilę, a jego oczy zdają się przenikać przez Twoją duszę. W końcu, głos rozbrzmiewa ponownie, głęboki i pełen mocy:" + " " +
                 "\r\n\r\n\"Twoja odwaga jest godna podziwu, sprawdźmy czy twój umysł jej dorównuje, czy jesteś gotów odpowiedzieć na moje pytania?\"";
-            smierc.Text = "Zadaj pytanie";
+            smierc.Visible = false;
             uciekaj.Visible = true;
             wysluchaj.Visible = false;
+            pytanie.Visible = true;
+            pytanie.Text = "Zadaj pytanie";
+
+            pytanie.Click += (s, e) =>
+            {
+                que1.Visible = true;
+                que2.Visible = true;
+                que3.Visible = true;
+                que4.Visible = true;
+                pytanie.Visible = false;
+                wstep.Visible = false;
+
+                Random losuj = new Random();
+                int i = losuj.Next(1, 5);
+                tabelapytania();
+            };
         }
         private void Click_Button(object sender, EventArgs e)
         {
@@ -104,8 +147,8 @@ namespace Test
                     break;
             }
         }
-
         
+
     }
     
 }
