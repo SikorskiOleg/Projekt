@@ -33,6 +33,8 @@
             this.smierc = new System.Windows.Forms.Button();
             this.wysluchaj = new System.Windows.Forms.Button();
             this.uciekaj = new System.Windows.Forms.Button();
+            this.ponownie = new System.Windows.Forms.Button();
+            this.poddaj = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tytul
@@ -48,6 +50,7 @@
             // wstep
             // 
             this.wstep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.wstep.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.wstep.Location = new System.Drawing.Point(60, 210);
             this.wstep.Multiline = true;
             this.wstep.Name = "wstep";
@@ -82,11 +85,35 @@
             this.uciekaj.Text = "Uciekaj";
             this.uciekaj.UseVisualStyleBackColor = true;
             // 
+            // ponownie
+            // 
+            this.ponownie.Font = new System.Drawing.Font("Times New Roman", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.ponownie.Location = new System.Drawing.Point(188, 548);
+            this.ponownie.Name = "ponownie";
+            this.ponownie.Size = new System.Drawing.Size(344, 86);
+            this.ponownie.TabIndex = 5;
+            this.ponownie.Text = "Spróbuj Ponownie";
+            this.ponownie.UseVisualStyleBackColor = true;
+            this.ponownie.Visible = false;
+            // 
+            // poddaj
+            // 
+            this.poddaj.Font = new System.Drawing.Font("Times New Roman", 22.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.poddaj.Location = new System.Drawing.Point(611, 556);
+            this.poddaj.Name = "poddaj";
+            this.poddaj.Size = new System.Drawing.Size(344, 86);
+            this.poddaj.TabIndex = 6;
+            this.poddaj.Text = "Poddaj się";
+            this.poddaj.UseVisualStyleBackColor = true;
+            this.poddaj.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1260, 690);
+            this.Controls.Add(this.poddaj);
+            this.Controls.Add(this.ponownie);
             this.Controls.Add(this.uciekaj);
             this.Controls.Add(this.wysluchaj);
             this.Controls.Add(this.smierc);
@@ -106,6 +133,8 @@
         private System.Windows.Forms.Button smierc;
         private System.Windows.Forms.Button wysluchaj;
         private System.Windows.Forms.Button uciekaj;
+        private System.Windows.Forms.Button ponownie;
+        private System.Windows.Forms.Button poddaj;
     }
 }
 
