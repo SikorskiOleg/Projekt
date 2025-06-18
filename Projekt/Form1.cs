@@ -16,5 +16,10 @@ namespace Projekt
         {
             InitializeComponent();
         }
+
+        private void Wysluchaj_Click(object sender, EventArgs e)
+        {
+            wstep.Text = "Witaj w programie do nauki języka polskiego";
+        }
     }
 }
