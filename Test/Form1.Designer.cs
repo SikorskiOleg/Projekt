@@ -40,6 +40,7 @@
             this.que3 = new System.Windows.Forms.Button();
             this.que4 = new System.Windows.Forms.Button();
             this.pytanie = new System.Windows.Forms.Button();
+            this.blokpytanie = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // tytul
@@ -161,11 +162,21 @@
             this.pytanie.UseVisualStyleBackColor = true;
             this.pytanie.Visible = false;
             // 
+            // blokpytanie
+            // 
+            this.blokpytanie.Location = new System.Drawing.Point(353, 84);
+            this.blokpytanie.Multiline = true;
+            this.blokpytanie.Name = "blokpytanie";
+            this.blokpytanie.Size = new System.Drawing.Size(474, 101);
+            this.blokpytanie.TabIndex = 12;
+            this.blokpytanie.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1260, 690);
+            this.Controls.Add(this.blokpytanie);
             this.Controls.Add(this.pytanie);
             this.Controls.Add(this.que4);
             this.Controls.Add(this.que3);
@@ -199,6 +210,7 @@
         private System.Windows.Forms.Button que3;
         private System.Windows.Forms.Button que4;
         private System.Windows.Forms.Button pytanie;
+        private System.Windows.Forms.TextBox blokpytanie;
     }
 }
 

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ using System.Windows.Forms;
 
 namespace Test
 {
-    public partial class Form1: Form
+    public partial class Form1 : Form
     {
         public Form1()
         {
@@ -34,14 +35,74 @@ namespace Test
             que4.Click += Click_Button;
             // koniec przypisania wartości przycisków
         }
-        private void tabelapytania()
+        private string tabelapytania()
         {
-            string [] tab = new string [4];
-            tab [0] = "Co jest zawsze przed tobą, ale nigdy nie możesz tego zobaczyć?";
-            tab [1] = "Co ma wiele kluczy, ale nie otwiera żadnych drzwi?";
-            tab [2] = "Co jest tak delikatne, że nawet słowo może to złamać?";
-            tab [3] = "Co jest większe niż Bóg, gorsze niż diabeł, bogaci to mają, biedni tego potrzebują, a jeśli to zjesz, umrzesz?";
+            que1.Visible = true;
+            que2.Visible = true;
+            que3.Visible = true;
+            que4.Visible = true;
+            pytanie.Visible = false;
+            wstep.Visible = false;
+            tytul.Visible = false;
+            blokpytanie.Visible = true;
+            string[] tab = new string[4];
+            tab[0] = "Co jest zawsze przed tobą, ale nigdy nie możesz tego zobaczyć?";
+            tab[1] = "Co ma wiele kluczy, ale nie otwiera żadnych drzwi?";
+            tab[2] = "Co jest tak delikatne, że nawet słowo może to złamać?";
+            tab[3] = "Co jest większe niż Bóg, gorsze niż diabeł, bogaci to mają, biedni tego potrzebują, a jeśli to zjesz, umrzesz?";
 
+            Random losuj = new Random();
+            int i = losuj.Next(tab.Length); // losowy indeks 0-3
+
+            if (i == 0)
+            {
+                blokpytanie.Text = tab[0];
+                que1.Text = "Powietrze";
+                que2.Text = "Cień";
+                que3.Text = "Przyszłość";
+                que4.Text = "Horyzont";
+                que1.Click += (s, e) => { SmiercAkcja(); };
+                que2.Click += (s, e) => { SmiercAkcja(); };
+                que3.Click += (s, e) => { Odpowiedz(); }; 
+                que4.Click += (s, e) => { SmiercAkcja(); };
+            }
+            else if (i == 1)
+            {
+                blokpytanie.Text = tab[1];
+                que1.Text = "Fortepian";
+                que2.Text = "Taran";
+                que3.Text = "Wytrych";
+                que4.Text = "Woźny";
+                que1.Click += (s, e) => { Odpowiedz(); };
+                que2.Click += (s, e) => { SmiercAkcja(); };
+                que3.Click += (s, e) => { SmiercAkcja(); };
+                que4.Click += (s, e) => { SmiercAkcja(); };
+            }
+            else if (i == 2)
+            {
+                blokpytanie.Text = tab[2];
+                que1.Text = "Serce";
+                que2.Text = "Lód";
+                que3.Text = "Szkło";
+                que4.Text = "Cisza";
+                que1.Click += (s, e) => { SmiercAkcja(); };
+                que2.Click += (s, e) => { SmiercAkcja(); };
+                que3.Click += (s, e) => { SmiercAkcja(); };
+                que4.Click += (s, e) => { Odpowiedz(); };
+            }
+            else if (i == 3)
+            {
+                blokpytanie.Text = tab[3];
+                que1.Text = "Śmierć";
+                que2.Text = "Czas";
+                que3.Text = "Nic";
+                que4.Text = "Nieskończoność";
+                que1.Click += (s, e) => { SmiercAkcja(); };
+                que2.Click += (s, e) => { SmiercAkcja(); };
+                que3.Click += (s, e) => { Odpowiedz(); };
+                que4.Click += (s, e) => { SmiercAkcja(); };
+            }
+            return tab[i];
         }
         private void UciekajAkcja()
         {
@@ -57,11 +118,11 @@ namespace Test
             wysluchaj.Visible = false;
             ponownie.Visible = true;
             poddaj.Visible = true;
-            
-           poddaj.Click += (s, e) =>
-            {
-                Application.Exit();
-            };
+
+            poddaj.Click += (s, e) =>
+             {
+                 Application.Exit();
+             };
             ponownie.Click += (s, e) =>
             {
                 Application.Restart();
@@ -114,18 +175,56 @@ namespace Test
             pytanie.Visible = true;
             pytanie.Text = "Zadaj pytanie";
 
-            pytanie.Click += (s, e) =>
-            {
-                que1.Visible = true;
-                que2.Visible = true;
-                que3.Visible = true;
-                que4.Visible = true;
-                pytanie.Visible = false;
-                wstep.Visible = false;
 
-                Random losuj = new Random();
-                int i = losuj.Next(1, 5);
-                tabelapytania();
+
+        }
+        private void Odpowiedz()
+        {
+            tabelapytania();
+            uciekaj.Visible = false;
+            wysluchaj.Visible = false;
+            poddaj.Visible = true;
+            
+            for (int i = 0; i <= 3; i++)
+            {
+                blokpytanie.Visible = true;
+                if (i == 3)
+                {
+                    //Jeśli odpowiedź jest poprawna
+                    Koniec();
+                    return;
+                }
+            }
+        }
+        private void Koniec()
+        {
+            //Naprawa problemu z zaznaczeniem tekstu w TextBoxie
+            wstep.SelectionStart = 0;
+            wstep.SelectionLength = 0;
+            // koniec naprawy
+            wstep.Visible = true;
+            wstep.Text = "Twoje odpowiedzi były poprawne, Sfinks skinął głową, a jego kamienne usta rozciągnęły się w uśmiechu" +
+                "" +
+                "Kamienne łąpy Sfinxa rozsuwają się i ujawniają przed tobą niewielką obsydianową skrzynkę ze złotymi zdobieniami, zdobyłeś to po co przyszedłeś";
+            blokpytanie.Visible = false;
+            que1.Visible = false;
+            que2.Visible = false;
+            que3.Visible = false;
+            que4.Visible = false;
+            smierc.Visible = false;
+            uciekaj.Visible = false;
+            wysluchaj.Visible = false;
+            ponownie.Visible = true;
+            ponownie.Text = "Zagraj ponownie";  
+            poddaj.Visible = false;
+            poddaj.Text = "Zakończ grę";
+            poddaj.Click += (s, e) =>
+            {
+                Application.Exit();
+            };
+            ponownie.Click += (s, e) =>
+            {
+                Application.Restart();
             };
         }
         private void Click_Button(object sender, EventArgs e)
@@ -142,12 +241,16 @@ namespace Test
                 case "wysluchaj":
                     WysluchajAkcja();
                     break;
+                case "pytanie":
+                    Odpowiedz();
+                    break;
                 default:
                     // domyślna akcja
                     break;
             }
         }
         
+
 
     }
     
