@@ -14,6 +14,9 @@ namespace Test
 {
     public partial class Form1 : Form
     {
+        private int poprawneOdpowiedzi = 0;
+        private List<int> dostepnePytania = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8};
+
         public Form1()
         {
             InitializeComponent();
@@ -29,14 +32,17 @@ namespace Test
             uciekaj.Click += Click_Button;
             wysluchaj.Click += Click_Button;
             pytanie.Click += Click_Button;
-            que1.Click += Click_Button;
-            que2.Click += Click_Button;
-            que3.Click += Click_Button;
-            que4.Click += Click_Button;
             // koniec przypisania wartości przycisków
+
         }
         private string tabelapytania()
         {
+            
+            que1.Click -= Que1_Click;
+            que2.Click -= Que2_Click;
+            que3.Click -= Que3_Click;
+            que4.Click -= Que4_Click;
+
             que1.Visible = true;
             que2.Visible = true;
             que3.Visible = true;
@@ -45,35 +51,49 @@ namespace Test
             wstep.Visible = false;
             tytul.Visible = false;
             blokpytanie.Visible = true;
-            string[] tab = new string[4];
+            blokpytanie.Font = new Font(blokpytanie.Font.FontFamily, 13);
+            string[] tab = new string[9];
             tab[0] = "Co jest zawsze przed tobą, ale nigdy nie możesz tego zobaczyć?";
             tab[1] = "Co ma wiele kluczy, ale nie otwiera żadnych drzwi?";
             tab[2] = "Co jest tak delikatne, że nawet słowo może to złamać?";
             tab[3] = "Co jest większe niż Bóg, gorsze niż diabeł, bogaci to mają, biedni tego potrzebują, a jeśli to zjesz, umrzesz?";
+            tab[4] = "Rano chodzę na czterech, w południe na dwóch, a wieczorem na trzech. Czym jestem?";
+            tab[5] = "Im więcej zabierasz, tym większe się staje. Co to jest?";
+            tab[6] = "Lata bez skrzydeł, płacze bez oczu. Czym jestem?";
+            tab[7] = "Należy do ciebie, ale częściej używają jej inni. Co to jest?";
+            tab[8] = "Gdy mnie potrzebujesz, rzucasz mnie. Gdy mnie nie potrzebujesz, podnosisz mnie. Kim jestem?";
+
+            if (dostepnePytania.Count == 0)
+                return ""; 
 
             Random losuj = new Random();
-            int i = losuj.Next(tab.Length); // losowy indeks 0-3
+            int idx = losuj.Next(dostepnePytania.Count);
+            int i = dostepnePytania[idx];
+            dostepnePytania.RemoveAt(idx);
+
 
             if (i == 0)
             {
                 blokpytanie.Text = tab[0];
                 que1.Text = "Powietrze";
                 que2.Text = "Cień";
-                que3.Text = "Przyszłość";
+                que3.Text = "Przyszłość"; // poprawna
                 que4.Text = "Horyzont";
+
                 que1.Click += (s, e) => { SmiercAkcja(); };
                 que2.Click += (s, e) => { SmiercAkcja(); };
-                que3.Click += (s, e) => { Odpowiedz(); }; 
+                que3.Click += (s, e) => { PoprawnaOdpowiedz(); };
                 que4.Click += (s, e) => { SmiercAkcja(); };
             }
             else if (i == 1)
             {
                 blokpytanie.Text = tab[1];
-                que1.Text = "Fortepian";
+                que1.Text = "Fortepian"; // poprawna
                 que2.Text = "Taran";
                 que3.Text = "Wytrych";
                 que4.Text = "Woźny";
-                que1.Click += (s, e) => { Odpowiedz(); };
+
+                que1.Click += (s, e) => { PoprawnaOdpowiedz(); };
                 que2.Click += (s, e) => { SmiercAkcja(); };
                 que3.Click += (s, e) => { SmiercAkcja(); };
                 que4.Click += (s, e) => { SmiercAkcja(); };
@@ -84,25 +104,116 @@ namespace Test
                 que1.Text = "Serce";
                 que2.Text = "Lód";
                 que3.Text = "Szkło";
-                que4.Text = "Cisza";
+                que4.Text = "Cisza"; // poprawna
+
                 que1.Click += (s, e) => { SmiercAkcja(); };
                 que2.Click += (s, e) => { SmiercAkcja(); };
                 que3.Click += (s, e) => { SmiercAkcja(); };
-                que4.Click += (s, e) => { Odpowiedz(); };
+                que4.Click += (s, e) => { PoprawnaOdpowiedz(); };
             }
             else if (i == 3)
             {
                 blokpytanie.Text = tab[3];
                 que1.Text = "Śmierć";
                 que2.Text = "Czas";
-                que3.Text = "Nic";
+                que3.Text = "Nic"; // poprawna
                 que4.Text = "Nieskończoność";
+
                 que1.Click += (s, e) => { SmiercAkcja(); };
                 que2.Click += (s, e) => { SmiercAkcja(); };
-                que3.Click += (s, e) => { Odpowiedz(); };
+                que3.Click += (s, e) => { PoprawnaOdpowiedz(); };
+                que4.Click += (s, e) => { SmiercAkcja(); };
+            }
+            else if (i == 4)
+            {
+                blokpytanie.Text = tab[4];
+                que1.Text = "Drzewo";
+                que2.Text = "Człowiek"; // poprawna
+                que3.Text = "Rzeka";
+                que4.Text = "Słoń";
+                que1.Click += (s, e) => { SmiercAkcja(); };
+                que2.Click += (s, e) => { PoprawnaOdpowiedz(); };
+                que3.Click += (s, e) => { SmiercAkcja(); };
+                que4.Click += (s, e) => { SmiercAkcja(); };
+            }
+            else if (i == 5)
+            {
+                blokpytanie.Text = tab[5];
+                que1.Text = "Bogactwo";
+                que2.Text = "Dziura"; // poprawna
+                que3.Text = "Ogień";
+                que4.Text = "Czas";
+                que1.Click += (s, e) => { SmiercAkcja(); };
+                que2.Click += (s, e) => { PoprawnaOdpowiedz(); };
+                que3.Click += (s, e) => { SmiercAkcja(); };
+                que4.Click += (s, e) => { SmiercAkcja(); };
+            }
+            else if (i == 6)
+            {
+                blokpytanie.Text = tab[6];
+                que1.Text = "Chmura"; // poprawna
+                que2.Text = "Nietoperz";
+                que3.Text = "Duch";
+                que4.Text = "Kamień";
+                que1.Click += (s, e) => { PoprawnaOdpowiedz(); };
+                que2.Click += (s, e) => { SmiercAkcja(); };
+                que3.Click += (s, e) => { SmiercAkcja(); };
+                que4.Click += (s, e) => { SmiercAkcja(); };
+            }
+            else if (i == 7)
+            {
+                blokpytanie.Text = tab[7];
+                que1.Text = "Imię"; // poprawna
+                que2.Text = "Pieniądze";
+                que3.Text = "Rodzina";
+                que4.Text = "Mądrość";
+                que1.Click += (s, e) => { PoprawnaOdpowiedz(); };
+                que2.Click += (s, e) => { SmiercAkcja(); };
+                que3.Click += (s, e) => { SmiercAkcja(); };
+                que4.Click += (s, e) => { SmiercAkcja(); };
+            }
+            else if (i == 8)
+            {
+                blokpytanie.Text = tab[8];
+                que1.Text = "Pieniądz";
+                que2.Text = "Kotwica"; // poprawna
+                que3.Text = "Przyjaciel";
+                que4.Text = "Miecz";
+                que1.Click += (s, e) => { SmiercAkcja(); };
+                que2.Click += (s, e) => { PoprawnaOdpowiedz(); };
+                que3.Click += (s, e) => { SmiercAkcja(); };
                 que4.Click += (s, e) => { SmiercAkcja(); };
             }
             return tab[i];
+        }
+        private void Que1_Click(object sender, EventArgs e)
+        {
+            // Sprawdź, która odpowiedź jest poprawna dla aktualnego pytania
+            if (blokpytanie.Text == "Co ma wiele kluczy, ale nie otwiera żadnych drzwi?")
+                PoprawnaOdpowiedz();
+            else
+                SmiercAkcja();
+        }
+        private void Que2_Click(object sender, EventArgs e)
+        {
+            SmiercAkcja();
+        }
+        private void Que3_Click(object sender, EventArgs e)
+        {
+            // Poprawna dla pytania 0 i 3
+            if (blokpytanie.Text == "Co jest zawsze przed tobą, ale nigdy nie możesz tego zobaczyć?" ||
+                blokpytanie.Text == "Co jest większe niż Bóg, gorsze niż diabeł, bogaci to mają, biedni tego potrzebują, a jeśli to zjesz, umrzesz?")
+                PoprawnaOdpowiedz();
+            else
+                SmiercAkcja();
+        }
+        private void Que4_Click(object sender, EventArgs e)
+        {
+            // Poprawna dla pytania 2
+            if (blokpytanie.Text == "Co jest tak delikatne, że nawet słowo może to złamać?")
+                PoprawnaOdpowiedz();
+            else
+                SmiercAkcja();
         }
         private void UciekajAkcja()
         {
@@ -139,6 +250,16 @@ namespace Test
             wstep.Font = new Font(wstep.Font.FontFamily, 9);
             // koniec naprawy
 
+            tytul.Visible = true;
+            tytul.Text = "Koniec Gry";
+            wstep.Visible = true;
+            blokpytanie.Visible = false;
+            que1.Visible = false;
+            que2.Visible = false;
+            que3.Visible = false;
+            que4.Visible = false;
+
+
             wstep.Text = "Kamienne oczy posągu śledzą twój każdy ruch, a powietrze wokół gęstnieje, jakby samo miejsce sprzeciwiało się twojej zuchwałości. " +
                 "Nagle - ostry ból rozdziera Twoją czaszkę, jakby ktoś wbił ci w skronie rozżarzone sztylety. Kolana uginają się pod tobą, a z ust wydobywa się chrapliwy jęk." +
                 "\r\n\r\nWidzenie przesłania ci krwawą mgłą." +
@@ -167,13 +288,14 @@ namespace Test
             wstep.SelectionLength = 0;
             // koniec naprawy
 
+            wstep.Font = new Font(wstep.Font.FontFamily, 12);
             wstep.Text = "Sfinks milczy przez chwilę, a jego oczy zdają się przenikać przez Twoją duszę. W końcu, głos rozbrzmiewa ponownie, głęboki i pełen mocy:" + " " +
-                "\r\n\r\n\"Twoja odwaga jest godna podziwu, sprawdźmy czy twój umysł jej dorównuje, czy jesteś gotów odpowiedzieć na moje pytania?\"";
+                "\r\n\r\n\"Twoja odwaga jest godna podziwu, sprawdźmy czy twój umysł jej dorównuje, zadam Ci trzy pytania. Jeżeli będziesz zdolny na nie odpowiedzieć wyjdziesz z tąd z tym czego pragnęli twoi poprzednicy. Czy jesteś gotów odpowiedzieć na moje pytania?\"";
             smierc.Visible = false;
             uciekaj.Visible = true;
             wysluchaj.Visible = false;
             pytanie.Visible = true;
-            pytanie.Text = "Zadaj pytanie";
+            pytanie.Text = "Zadaj pytania";
 
 
 
@@ -183,17 +305,18 @@ namespace Test
             tabelapytania();
             uciekaj.Visible = false;
             wysluchaj.Visible = false;
-            poddaj.Visible = true;
-            
-            for (int i = 0; i <= 3; i++)
+            poddaj.Visible = false;
+        }  
+        private void PoprawnaOdpowiedz()
+        {
+            poprawneOdpowiedzi++;
+            if (poprawneOdpowiedzi >= 3)
             {
-                blokpytanie.Visible = true;
-                if (i == 3)
-                {
-                    //Jeśli odpowiedź jest poprawna
-                    Koniec();
-                    return;
-                }
+                Koniec();
+            }
+            else
+            {
+                Odpowiedz(); 
             }
         }
         private void Koniec()
@@ -202,9 +325,12 @@ namespace Test
             wstep.SelectionStart = 0;
             wstep.SelectionLength = 0;
             // koniec naprawy
+            tytul.Visible = true;
+            tytul.Text = "Zwycięstwo!";
             wstep.Visible = true;
+            wstep.Font = new Font(wstep.Font.FontFamily, 12);
             wstep.Text = "Twoje odpowiedzi były poprawne, Sfinks skinął głową, a jego kamienne usta rozciągnęły się w uśmiechu" +
-                "" +
+                " " +
                 "Kamienne łąpy Sfinxa rozsuwają się i ujawniają przed tobą niewielką obsydianową skrzynkę ze złotymi zdobieniami, zdobyłeś to po co przyszedłeś";
             blokpytanie.Visible = false;
             que1.Visible = false;
@@ -245,7 +371,6 @@ namespace Test
                     Odpowiedz();
                     break;
                 default:
-                    // domyślna akcja
                     break;
             }
         }
@@ -255,3 +380,71 @@ namespace Test
     }
     
 }
+/*private string tabelapytania()
+        {
+            que1.Visible = true;
+            que2.Visible = true;
+            que3.Visible = true;
+            que4.Visible = true;
+            pytanie.Visible = false;
+            wstep.Visible = false;
+            tytul.Visible = false;
+            blokpytanie.Visible = true;
+            string[] tab = new string[4];
+            tab[0] = "Co jest zawsze przed tobą, ale nigdy nie możesz tego zobaczyć?";
+            tab[1] = "Co ma wiele kluczy, ale nie otwiera żadnych drzwi?";
+            tab[2] = "Co jest tak delikatne, że nawet słowo może to złamać?";
+            tab[3] = "Co jest większe niż Bóg, gorsze niż diabeł, bogaci to mają, biedni tego potrzebują, a jeśli to zjesz, umrzesz?";
+
+            Random losuj = new Random();
+            int i = losuj.Next(tab.Length); // losowy indeks 0-3
+
+            if (i == 0)
+            {
+                blokpytanie.Text = tab[0];
+                que1.Text = "Powietrze";
+                que2.Text = "Cień";
+                que3.Text = "Przyszłość";
+                que4.Text = "Horyzont";
+                que1.Click += (s, e) => { SmiercAkcja(); };
+                que2.Click += (s, e) => { SmiercAkcja(); };
+                que3.Click += (s, e) => { PoprawnaOdpowiedz(); }; 
+                que4.Click += (s, e) => { SmiercAkcja(); };
+            }
+            else if (i == 1)
+            {
+                blokpytanie.Text = tab[1];
+                que1.Text = "Fortepian";
+                que2.Text = "Taran";
+                que3.Text = "Wytrych";
+                que4.Text = "Woźny";
+                que1.Click += (s, e) => { PoprawnaOdpowiedz(); };
+                que2.Click += (s, e) => { SmiercAkcja(); };
+                que3.Click += (s, e) => { SmiercAkcja(); };
+                que4.Click += (s, e) => { SmiercAkcja(); };
+            }
+            else if (i == 2)
+            {
+                blokpytanie.Text = tab[2];
+                que1.Text = "Serce";
+                que2.Text = "Lód";
+                que3.Text = "Szkło";
+                que4.Text = "Cisza";
+                que1.Click += (s, e) => { SmiercAkcja(); };
+                que2.Click += (s, e) => { SmiercAkcja(); };
+                que3.Click += (s, e) => { SmiercAkcja(); };
+                que4.Click += (s, e) => { PoprawnaOdpowiedz(); };
+            }
+            else if (i == 3)
+            {
+                blokpytanie.Text = tab[3];
+                que1.Text = "Śmierć";
+                que2.Text = "Czas";
+                que3.Text = "Nic";
+                que4.Text = "Nieskończoność";
+                que1.Click += (s, e) => { SmiercAkcja(); };
+                que2.Click += (s, e) => { SmiercAkcja(); };
+                que3.Click += (s, e) => { PoprawnaOdpowiedz(); };
+                que4.Click += (s, e) => { SmiercAkcja(); };
+            }
+            return tab[i]; */
